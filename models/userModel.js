@@ -27,11 +27,11 @@ const userSchema = Schema(
     posts: [{ type: Schema.Types.ObjectID, ref: "Post" }],
     image: {
       type: String,
-      default: null,
+      default: "Null",
     },
     imageId: {
       type: String,
-      default: null,
+      default: "Null",
     },
   },
   {

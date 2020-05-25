@@ -10,6 +10,7 @@ const authRouter = require("./routes/authRouter");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static("assets"));
 
 //Routes
 app.use("/auth", authRouter);

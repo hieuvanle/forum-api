@@ -5,7 +5,6 @@ const cors = require("cors");
 const userRouter = require("./routes/userRouter");
 const postRouter = require("./routes/postRouter");
 const authRouter = require("./routes/authRouter");
-const path = require("path");
 
 //Plugins
 const app = express();
@@ -29,15 +28,6 @@ mongoose.connect(uri, {
 mongoose.connection.once("open", () => {
   console.log("Connected to DB");
 });
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("forum-client/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(
-      path.resolve(__dirname, "forum-client", "build", "index.html")
-    );
-  });
-}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, (res) => {

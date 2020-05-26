@@ -1,5 +1,7 @@
 const User = require("../models/userModel");
 const Post = require("../models/postModel");
+const fs = require("fs");
+const sharp = require("sharp");
 const { uploads, destroy } = require("../cloudinary");
 
 module.exports = {
@@ -25,12 +27,20 @@ module.exports = {
   },
   updateAvatar: async (req, res, next) => {
     try {
+      //Resize image
+      const file = req.files[0];
+      await sharp(file.path)
+        .resize(100, 100)
+        .toFile("assets\\resized-" + file.originalname);
+
       const user = await User.findById(req.params.id);
-      user.image = req.files[0].path;
+      if (user.image !== "None") await destroy(user.imageId);
+      user.image = "assets\\resized-" + file.originalname;
       const result = await uploads(user.image);
       user.image = result.url;
       user.imageId = result.id;
       await user.save();
+      fs.unlinkSync("assets\\" + file.originalname);
       res.status(200).json("Successfully updated!");
     } catch (err) {
       res.json(err);

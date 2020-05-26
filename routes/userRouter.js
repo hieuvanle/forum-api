@@ -6,7 +6,7 @@ const {
   paramsValidator,
   schemas,
 } = require("../middlewares/routeValidator");
-const upload = require("../middlewares/multer");
+const { upload } = require("../middlewares/multer");
 
 //All users
 router.route("/").get(userController.getAllUsers);

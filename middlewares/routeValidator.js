@@ -39,7 +39,7 @@ const schemas = {
     name: joi.string().min(4).max(12).required(),
     email: joi
       .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "edu"] } })
       .required(),
     password: joi.string().min(6).max(12).required(),
   }),
@@ -47,7 +47,7 @@ const schemas = {
     name: joi.string().min(4).max(12),
     email: joi
       .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } }),
+      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "edu"] } }),
     password: joi.string().min(6).max(12),
   }),
   postSchema: joi.object().keys({

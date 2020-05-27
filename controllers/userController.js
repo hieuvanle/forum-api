@@ -29,6 +29,7 @@ module.exports = {
     try {
       //Resize image
       const file = req.files[0];
+      console.log(file);
       await sharp(file.path)
         .resize(100, 100)
         .toFile("assets\\resized-" + file.originalname);

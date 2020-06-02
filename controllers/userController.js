@@ -3,6 +3,7 @@ const Post = require("../models/postModel");
 const fs = require("fs");
 const sharp = require("sharp");
 const { uploads, destroy } = require("../cloudinary");
+const cloudinary = require("cloudinary");
 
 module.exports = {
   //All users
@@ -29,15 +30,14 @@ module.exports = {
     try {
       //Resize image
       const file = req.files[0];
-      console.log(file);
       await sharp(file.path)
         .resize(100, 100)
         .toFile("assets\\resized-" + file.originalname);
-
       const user = await User.findById(req.params.id);
       if (user.image !== "None") await destroy(user.imageId);
       user.image = "assets\\resized-" + file.originalname;
       const result = await uploads(user.image);
+      console.log(result);
       user.image = result.url;
       user.imageId = result.id;
       await user.save();

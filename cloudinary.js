@@ -13,7 +13,7 @@ const uploads = (file) => {
       file,
       (result) => {
         fs.unlinkSync(file);
-        resolve({ url: result.url, id: result.public_id });
+        resolve({ url: result.secure_url, id: result.public_id });
       },
       { resource_type: "auto" }
     );
